@@ -1,10 +1,17 @@
 package com.example.demo.controller;
 
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +28,42 @@ public class BreadMapController {
 	@GetMapping("freelance")
 	public String showFreeLance() {
 		return "freelance";
+	}
+	
+	
+	/* メッセージをDBに登録する */
+	@PostMapping("post-message")
+	@ResponseBody
+	@Transactional
+	public Boolean registerEvent(@RequestBody Map<String, Object> postMessage){
+		Integer userId = (Integer)postMessage.get("userId");
+		LocalDateTime startTime = LocalDateTime.parse((String)postMessage.get("startTime"));
+		LocalDateTime endTime = LocalDateTime.parse((String)postMessage.get("endTime"));
+		String message = (String)postMessage.get("message");
+	    Double lat = ((Number) postMessage.get("lat")).doubleValue();
+	    Double lng = ((Number) postMessage.get("lng")).doubleValue();
+	    // TODO:制限（restrict）を追加する
+		// List<Integer> resList = (List<Integer>)postMessage.get("restrict");
+		// DBに値を登録
+	    KeyHolder keyHolder = new GeneratedKeyHolder();
+	    // イベントテーブルにデータ登録
+	    jdbcTemplate.update(con -> {
+	        PreparedStatement ps = con.prepareStatement(
+	            "INSERT INTO event (start_time, end_time, lat, lng, message, user_id) VALUES (?, ?, ?, ?, ?, ?)",
+	            Statement.RETURN_GENERATED_KEYS);
+	        ps.setObject(1, startTime);
+	        ps.setObject(2, endTime);
+	        ps.setDouble(3, lat);
+	        ps.setDouble(4, lng);
+	        ps.setString(5, message);
+	        ps.setInt(6, userId);
+	        return ps;
+	    }, keyHolder);
+	    // Number eventId = (Number) keyHolder.getKeys().get("event_id");
+	    // TODO:制限テーブル登録
+	    // jdbcTemplate.update("INSERT INTO restriction (event_id, restriction) VALUES (?, ?)",
+	        // eventId, restrict;
+		return true;
 	}
 	
 	/* ストア画面を表示する */
