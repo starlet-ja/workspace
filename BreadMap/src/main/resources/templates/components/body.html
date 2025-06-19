@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title layout:fragment="title">body</title>
+</head>
+<body>
+<!-- ON/OFF切替エリア -->
+<div th:fragment="switch-area">
+	<div id="switch-area">
+      <a href="javascript:void(0)" onclick="setModeCookie('online', '/online-event')">
+	    <div id="online">ONLINE</div>
+	  </a>
+	  <a href="javascript:void(0)" onclick="setModeCookie('offline', '/offline-event')">
+	    <div id="offline" class="active">OFFLINE</div>
+	  </a>
+	</div>	
+</div>
+<!-- コントロールエリア -->
+<div th:fragment="top-area">
+	<div id="top-area">
+	  <img id="logo" src="/img/shuurou.png" />
+	  <div id="control-buttons">
+	    <div id="calendar-area">
+	      <div id="calendar-title">イベント表示期間</div>
+	      <div id="calendar-choice">
+	        <input type="date" id="startDate" class="calendarPicker" />
+	        ～
+	        <input type="date" id="endDate" class="calendarPicker" />
+	      </div>
+	    </div>
+		<!-- ログインしていない場合 -->
+	    <a th:if="${!isLoggedIn}" href="/login">
+	      <button type="button" class="menu-button">ログイン</button>
+	    </a>
+		<!-- ログインしている場合 -->
+	    <div th:if="${isLoggedIn}" style="display:flex; flex-direction:column; gap:8px;">
+	      <form action="/profile" method="get">
+	        <button type="submit" class="menu-button">プロフィール</button>
+	      </form>
+	    </div>
+	  </div>
+	</div>
+</div>
+
+</body>

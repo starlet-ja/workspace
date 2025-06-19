@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+/* PC (幅1025px以上) */
+
+/* イベント作成ステップ */
+.step {
+  margin-bottom: 20px;
+}
+
+/*登録フォーム下部のボタンレイアウト*/
+.set-button {
+	width: 200px;
+	padding: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content:flex-start;
+	box-sizing:border-box;
+}
+
+/* 吹き出し本体 */
+.mapboxgl-popup-content, .maplibregl-popup-content {
+    background: #fefefe; /* やや明るい白 */
+    border-radius: 12px;
+    border: 2px solid #000; /* 濃いグレーで締まった印象 */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25); /* 立体感 */
+    padding: 5px;
+    pointer-events: auto;
+    position: relative;
+    font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif; /* モダンフォント */
+	/* 全体の pointer-events を禁止 */
+	pointer-events: none;
+}
+
+/* 吹き出しの先端（三角形） */
+.mapboxgl-popup-tip, .maplibregl-popup-tip {
+    border: 10px solid transparent;
+    height: 0;
+    width: 0;
+    z-index: 1;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip, .maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+    align-self: center;
+    border-bottom: none;
+    border-top-color: #000; /* 本体のborder色と合わせる */
+}
+
+/* 吹き出し内のコンテンツ */
+.popup-contents {
+    font-size: 12px;
+    color: #000; /* しっかり黒め */
+    line-height: 1.5;
+}
+
+/* 「詳細」ボタン風 */
+.popup-contents #show-details {
+    display: inline-block;
+    margin-top: 8px;
+	width: 100%;
+    padding: 5px;
+    background-color: #007BFF;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+	box-sizing: border-box;
+	text-align: center;
+	/* ここだけタップ可能に戻す */
+	pointer-events: auto;
+	transition: background-color 0.3s;
+}
+
+
+.popup-contents a {
+    color: #000000;
+    text-decoration: none;
+}
+
+/*吹き出し作成フォーム*/
+#comment-form {
+display:none;
+position:absolute;
+top: 30px;
+right: 0px;
+width: 100%;
+background:#fff;
+padding:10px;
+border:1px solid #ccc;
+box-sizing: border-box;
+z-index: 1002;
+}
+
+/* 村作成フォームのバツボタン */
+#comment-form .close-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 35px;
+  height: 35px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1;
+}
+/* 村作成フォームの次 */
+.next-button{
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007BFF;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+/* 村作成フォームの戻る */
+.prev-button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #6c757d;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+
+/* タブレット (幅601px～1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+	/*登録フォーム下部のボタンレイアウト*/
+	.set-button {
+		width: 200px;
+		padding: 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-start;
+		box-sizing:border-box;
+	}
+}
+
+/* スマホ (幅600px以下) */
+@media (max-width: 600px) {
+	
+	/*登録フォーム下部のボタンレイアウト*/
+	.set-button {
+		width: 200px;
+		padding: 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-start;
+		box-sizing:border-box;
+	}
+}
+
+
+
