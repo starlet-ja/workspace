@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title th:text="'イベント詳細 - ' + ${eventDetail.eventTitle}">イベント詳細</title>
+	<link rel="stylesheet" th:href="@{/style/sub-common.css}" />
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+	<div id="total-area">
+		<!-- ON/OFFの切替エリアを挿入 -->
+		<div th:insert="~{components/body :: switch-area}"></div>
+	</div>
+	<div id="card-folder">
+	    <div class="card">
+			<!-- バツボタン -->
+			<button class="close-button" onclick="goBack()">×</button>
+			<!-- このページのURLをコピーする -->
+			<p class="url-copy">
+			  この村のURL:
+			  <span class="url-copy-wrapper">
+			    <input type="text" id="eventUrlInput" th:value="${eventUrl}" readonly />
+			    <button onclick="copyEventUrl()">コピー</button>
+			  </span>
+			</p>
+	        <h1 th:text="|村名: ${eventDetail.eventTitle}|">村名</h1>
+	        <p>📅 日付: <span th:text="${eventDetail.eventDate}"></span></p>
+	        <p>🕒 開始: <span th:text="${eventDetail.startTime}"></span></p>
+			<p th:if="${eventDetail.eventMessage}">📝 主催者コメント: <span th:text="${eventDetail.eventMessage}"></span></p>
+			<p>参加条件: 
+			  <span th:each="r, stat : ${restrictions}">
+			    <span th:text="${r}"></span><span th:if="${!stat.last}">、</span>
+			  </span>
+			</p>
+			<p>募集人数:
+				<span th:text="${eventDetail.recruitMin}"></span>～<span th:text="${eventDetail.recruitMax}"></span>
+			</p>
+			<p>主催者:
+				<a th:href="@{/user-profile(userId=${eventDetail.userId})}" th:text="${eventDetail.host}"></a>
+			</p>
+			<p>参加者:</p>
+			<ul>
+			    <li th:each="participant : ${participants}">
+					<a th:href="@{/user-profile(userId=${participant.user_id})}" th:text="${participant.user_name}">ユーザー名</a>
+			    </li>
+			</ul>
+	
+	        <!-- 参加ボタン -->
+	        <div th:if="${isLoggedIn}">
+	            <form th:action="@{/toggle-participation}" method="post">
+	                <input type="hidden" name="eventId" id="eventId" th:value="${eventDetail.eventId}" />
+	                <button type="submit" class="btn" th:text="${isParticipating} ? '参加を取り消す' : '参加する'"></button>
+	            </form>
+	        </div>
+	        <div th:unless="${isLoggedIn}" class="login-hint">
+	            ※ <a href="/login">ログイン</a>すると参加できます
+	        </div>
+			
+		  <h2>参加者のコメント</h2>
+		  <div id="comment-list" th:attr="data-event-id=${eventDetail.eventId}"></div>
+		    <!-- コメントがここに表示される -->
+		
+			<!-- コメントフォーム（参加者のみ表示） -->
+			<div th:if="${isParticipating}">			
+			  <form>
+			    <label for="comment">コメント:</label>
+			    <textarea name="commentText" id="comment" rows="4" style="width: 100%;" required></textarea>
+			    <button type="submit" class="btn" id="submitComment">
+					コメントを投稿
+				</button>
+			  </form>
+			</div>
+		  </div>
+	    </div>
+	</div>
+	<script>
+	function copyEventUrl() {
+	    const input = document.getElementById("eventUrlInput");
+	    input.select();
+	    input.setSelectionRange(0, 99999); // モバイル用
+	    document.execCommand("copy");
+	    alert("URLをコピーしました: " + input.value);
+	}
+	</script>
+	<script th:src="@{/js/event-detail.js}"></script>
+	<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

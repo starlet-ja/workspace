@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>新規登録</title>
+<link rel="stylesheet" th:href="@{/style/sub-common.css}" />
+</head>
+<body>
+	<div id="total-area">
+		<!-- ON/OFFの切替エリアを挿入 -->
+		<div th:insert="~{components/body :: switch-area}"></div>
+	</div>
+	<div id="card-folder">
+		<div class="card">
+			<!-- バツボタン -->
+			<button class="close-button" onclick="goBack()">×</button>
+			<h1>新規ユーザー登録</h1>
+			<form id="registerForm" method="post" action="/register">
+			  <input type="hidden" name="mode" value="online">
+			  <label>メールアドレス:</label>
+			  <input type="email" name="address" required>
+			  <label>パスワード:</label>
+			  <input type="password" name="password" required>
+			  <button type="submit">登録する</button>
+			</form>
+		
+			<!-- エラーメッセージ or 完了メッセージ -->
+			<p th:if="${error}" th:text="${error}" style="color:red;"></p>
+			<p th:if="${message}" th:text="${message}" style="color:green;"></p>
+		</div>
+	</div>
+	<script th:src="@{/js/common.js}"></script>
+</body>
+</html>
