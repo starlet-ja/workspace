@@ -644,7 +644,8 @@ public class BreadMapController {
 	    }, keyHolder);
 	    
 	    // イベント詳細テーブルにデータ登録
-	    Number eventId = (Number) keyHolder.getKeys().get("event_id");
+	    //Number eventId = (Number) keyHolder.getKeys().get("event_id");
+	    Number eventId = keyHolder.getKey();
 	    jdbcTemplate.update("INSERT INTO event_details (event_id, event_message) VALUES (?, ?)",
         eventId, message);
 
