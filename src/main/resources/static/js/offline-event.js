@@ -65,7 +65,7 @@ function getEventsByDate() {
 
   $.ajax({
     type: "POST",
-    url: "http://192.168.1.17:8080/get-events",
+    url: `${baseUrl}/get-events`,
     contentType: "application/json",
     data: JSON.stringify({ eventType: "off", startDate: startDate, endDate: endDate }),
     dataType: "json"
@@ -132,9 +132,6 @@ map.on('load', () => {
       map.setLayoutProperty(layer.id, 'text-size', newSize);
     }
   });
-
-  // カレンダー日付のイベント一覧をマップに追加
-  // getEventsByDate();
 });
 
 // 遷移前にマップの位置をlocalStorageに保存
@@ -204,7 +201,7 @@ document.getElementById('submitComment').addEventListener('click', () => {
 function posMsg(inpMsg) {
   $.ajax({
     type: "POST",
-    url: "http://192.168.1.17:8080/post-message",
+    url: `${baseUrl}/post-message`,
     contentType: "application/json",
     data: JSON.stringify(inpMsg),
     dataType: "json"

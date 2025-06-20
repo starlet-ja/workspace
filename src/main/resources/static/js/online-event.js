@@ -55,7 +55,7 @@ function getEventsByDate() {
 	}
 	$.ajax({
 	  type: "POST",
-	  url: "http://192.168.1.17:8080/get-events",
+	  url: `${baseUrl}/get-events`,
 	  contentType: "application/json",
 	  data: JSON.stringify({ eventType: "on", startDate: startDate, endDate: endDate }),
 	  dataType: "json"

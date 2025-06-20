@@ -1,3 +1,9 @@
+// 開発環境と本番環境でホストを切り替える
+const isLocal = location.hostname === 
+  "localhost" || location.hostname.startsWith("192.168.");
+const baseUrl = isLocal
+  ? "http://192.168.1.17:8080" // 開発環境
+  : "https://www.shuurou.com"; // 本番環境
 
 // 村の設定内容をDBに登録する
 function setEventData(clickedLngLat) {
@@ -72,7 +78,7 @@ function setEventData(clickedLngLat) {
 	
 	$.ajax({
 	  type: "POST",
-	  url: "http://192.168.1.17:8080/set-event",
+	  url: `${baseUrl}/set-event`,
 	  contentType: "application/json",
 	  data: JSON.stringify(inpMsg),
 	  dataType: "json"

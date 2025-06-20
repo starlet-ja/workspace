@@ -17,7 +17,7 @@ function formatJapaneseDate(isoString) {
 function getComments(eventId) {
 	$.ajax({
 		type: "POST",
-		url: "http://192.168.1.17:8080/get-comments",
+		url: `${baseUrl}/get-comments`,
 		contentType: "application/json",
 		data: JSON.stringify({ eventId: eventId }),
 		dataType: "json"
@@ -69,7 +69,7 @@ if (submitBtn) {
 	
 	  $.ajax({
 	  	type: "POST",
-	  	url: "http://192.168.1.17:8080/post-comment",
+	  	url: `${baseUrl}/post-comment`,
 	  	contentType: "application/json",
 	  	data:JSON.stringify(inpMsg),
 	  	dataType:"json"
