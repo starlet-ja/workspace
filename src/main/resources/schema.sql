@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS public.event (
   start_time time without time zone,
   end_time time without time zone,
   lat double precision,
-  lon double precision,
+  lng double precision,
   user_id integer,
   event_date date,
   event_title varchar(50),
