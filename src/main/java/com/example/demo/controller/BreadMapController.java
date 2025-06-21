@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,8 @@ import com.example.demo.dto.LoginRequest;
 
 @Controller
 public class BreadMapController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BreadMapController.class);
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -145,6 +149,7 @@ public class BreadMapController {
 	/* ログイン画面 */
 	@GetMapping("/login")
 	public String showLoginPage() {
+		logger.info("/login");
 	    return "login";
 	}
 
@@ -152,6 +157,8 @@ public class BreadMapController {
 	@PostMapping("/login")
 	public String login(@ModelAttribute LoginRequest request, Model model,
 			HttpSession session, HttpServletResponse response) {
+		logger.info("/login メソッドの呼び出し: {}", request);
+		
 	    try {
 	        String sql = "SELECT p.hashed_password FROM user_mail m " +
 	                     "JOIN user_password p ON m.user_id = p.user_id " +
@@ -247,6 +254,8 @@ public class BreadMapController {
 	/* ログアウト */
 	@GetMapping("/user-logout")
 	public String logout(HttpSession session, HttpServletResponse response) {
+		logger.info("/user-logout");
+		
 	    // セッションを無効化
 	    session.invalidate();
 	    // Cookie削除
@@ -260,6 +269,8 @@ public class BreadMapController {
 
 	@GetMapping("/profile")
 	public String showProfile(HttpSession session, Model model) {
+		logger.info("/profile");
+		
 	    Object loginUser = session.getAttribute("loginUser");
 
 	    if (loginUser == null) {
@@ -338,6 +349,8 @@ public class BreadMapController {
 	// プロフィール編集画面を表示
 	@GetMapping("/edit-profile")
 	public String showEditProfile(@RequestParam String email, Model model) {
+		logger.info("/edit-profile");
+		
 	    // user_id を取得
 	    String userIdSql = "SELECT user_id FROM user_mail WHERE email = ?";
 	    Integer userId = jdbcTemplate.queryForObject(userIdSql, Integer.class, email);
@@ -388,6 +401,8 @@ public class BreadMapController {
 	                            @RequestParam String userGender,
 	                            @RequestParam String userProfile,
 	                            Model model) {
+		logger.info("/edit-profile メソッドの呼び出し");
+		
 	    try {
 	        // user_id を取得
 	        String userIdSql = "SELECT user_id FROM user_mail WHERE email = ?";
@@ -443,6 +458,8 @@ public class BreadMapController {
 	@PostMapping("/get-events")
 	@ResponseBody
 	public List<Map<String, Object>> getEventsByDate(@RequestBody Map<String, String> request) {
+		logger.info("/get-events メソッドの呼び出し: {}", request);
+		
 	    // オンラインかオフラインを確認する
 	    String eventType = (String)request.get("eventType");
 	    
@@ -511,6 +528,8 @@ public class BreadMapController {
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<Map<String, Object>> registerEvent(@RequestBody Map<String, Object> postMessage, HttpSession session){
+		logger.info("/set-event メソッドの呼び出し: {}", postMessage);
+		
 	    // セッションから loginUser を確認
 	    Object loginUser = session.getAttribute("loginUser");
 	    // ログインしていなければ 403 Forbidden を返す
@@ -536,6 +555,8 @@ public class BreadMapController {
 	    // オンラインか、オフラインかで処理を変える
 	    String eventType = (String)postMessage.get("eventType");
 	    if (Constants.EVENT_TYPE_ON.equals(eventType)) {
+	    	logger.info("/set-event オンライン側の処理");
+	    	
 	    	// オンラインの処理
 	    	userId = (Integer) loginUser;
 	    	eventTitle = (String)postMessage.get("eventTitle");
@@ -559,6 +580,8 @@ public class BreadMapController {
 	    	    }
 	    	}    	
 	    } else if (Constants.EVENT_TYPE_OFF.equals(eventType)) {
+	    	logger.info("/set-event オフライン側の処理");
+	    	
 	    	// オフラインの処理
 	    	userId = (Integer) loginUser;
 	    	eventTitle = (String)postMessage.get("eventTitle");
@@ -582,6 +605,8 @@ public class BreadMapController {
 	    	    }
 	    	}	    	
 	    } else {
+	    	logger.info("/set-event オンライン/オフライン不明の処理");
+	    	
 	    	Map<String, Object> errorResponse = new HashMap<>();
 	    	errorResponse.put("error", "イベント種別が不明");
 	    	return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
@@ -642,12 +667,13 @@ public class BreadMapController {
 	        
 	        return ps;
 	    }, keyHolder);
+	    logger.info("/set-event イベントテーブルにデータ登録成功");
 	    
 	    // イベント詳細テーブルにデータ登録
-	    //Number eventId = (Number) keyHolder.getKeys().get("event_id");
-	    Number eventId = keyHolder.getKey();
+	    Number eventId = (Number) keyHolder.getKeys().get("event_id");
 	    jdbcTemplate.update("INSERT INTO event_details (event_id, event_message) VALUES (?, ?)",
         eventId, message);
+	    logger.info("/set-event イベント詳細テーブルにデータ登録成功");
 
 	    // 制限テーブルに restrictions をINSERT
 	    for (Integer restrict : restrictions) {
@@ -666,6 +692,7 @@ public class BreadMapController {
 	            return ps;
 	        });
 	    }
+	    logger.info("/set-event 制限テーブルにデータ登録成功");
 	    
 	    // レスポンスとしてeventIdを返す
 	    Map<String, Object> response = new HashMap<>();
@@ -698,6 +725,7 @@ public class BreadMapController {
 	 */
 	@GetMapping("/event-detail")
 	public String showEventDetail(@RequestParam Integer eventId, Model model, HttpSession session) {
+		logger.info("/event-detail ページ表示");
 
 	    // イベント詳細取得
 	    EventDetail eventDetail = jdbcTemplate.queryForObject(
@@ -722,6 +750,7 @@ public class BreadMapController {
 	        },
 	        eventId
 	    );
+	    logger.info("/event-detail イベント詳細テーブルからデータ取得成功");
 	    
 		 // 制限リストを取得（整数で保持）
 	    List<Integer> restrictionIds = jdbcTemplate.query(
@@ -729,6 +758,7 @@ public class BreadMapController {
 	    	    (rs, rowNum) -> rs.getInt("restriction"),
 	    	    eventId
 	    	);
+	    logger.info("/event-detail 制限テーブルからデータ取得成功");
 
     	// 制限リストを表示名に変換
     	List<String> restrictionNames = restrictionIds.stream()
@@ -778,6 +808,8 @@ public class BreadMapController {
 	// イベント参加ボタンをクリックした際の処理
 	@PostMapping("/toggle-participation")
 	public String toggleParticipation(@RequestParam Integer eventId, HttpSession session) {
+		logger.info("/toggle-participation メソッドの呼び出し: {}", eventId);
+		
 	    Object loginUser = session.getAttribute("loginUser");
 	    if (loginUser == null) {
 	        return "redirect:/login";
@@ -788,6 +820,8 @@ public class BreadMapController {
 	    // 現在の参加状況を確認
 	    String checkSql = "SELECT COUNT(*) FROM event_participants WHERE event_id = ? AND user_id = ?";
 	    Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, eventId, userId);
+	    
+	    logger.info("/toggle-participation イベント参加者テーブルからデータ取得成功");
 
 	    if (count != null && count > 0) {
 	        // 既に参加 → 削除
@@ -804,7 +838,8 @@ public class BreadMapController {
 	// 他人のプロフィールページ
 	@GetMapping("/user-profile")
 	public String showUserProfile(@RequestParam("userId") Integer userId, Model model, HttpSession session) {
-
+		logger.info("/user-profile ページ表示");
+		
 	    // ユーザー名を取得
         String userName = null;
         try {
@@ -874,6 +909,7 @@ public class BreadMapController {
 	@ResponseBody
 	@Transactional
 	public ResponseEntity<?> postComment(@RequestBody Map<String, Object> postComment, HttpSession session) {
+		logger.info("/post-comment メソッドの呼び出し: {}", postComment);
 	    Object loginUser = session.getAttribute("loginUser");
 	    if (loginUser == null) {
 	        return ResponseEntity.status(HttpStatus.FORBIDDEN)
@@ -921,6 +957,8 @@ public class BreadMapController {
 	@PostMapping("/get-comments")
 	@ResponseBody
 	public ResponseEntity<List<Map<String, Object>>> getComments(@RequestBody Map<String, Object> payload) {
+		logger.info("/get-comments メソッドの呼び出し: {}", payload);
+		
 	    Object rawEventId = payload.get("eventId");
 	    Integer eventId;
 	    if (rawEventId instanceof Number) {
