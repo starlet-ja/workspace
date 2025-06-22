@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title th:text="'プロフィール - ' + ${userName}">プロフィール</title>
+    <link rel="stylesheet" th:href="@{/style/sub-common.css}" />
+</head>
+<body>
+	
+<div id="total-area">
+	<!-- ON/OFFの切替エリアを挿入 -->
+	<div th:insert="~{components/body :: switch-area}"></div>
+</div>
+
+<div id="card-folder">
+	<div class="card">
+		<!-- バツボタン -->
+		<button class="close-button" onclick="goBack()">×</button>
+		<h1 th:text="${userName}"></h1>
+		<p>性別:<span th:text="${userGender}"></span></p>
+		<p>紹介文:<span th:text="${userProfile}"></span></p>
+		
+		<h2>参加予定のイベント</h2>
+		<ul th:if="${breforeParticipatingEvents}" th:each="event : ${breforeParticipatingEvents}">
+		    <li>
+		        <a th:href="@{/event-detail(eventId=${event.event_id})}" th:text="${event.event_title}">イベント名</a>
+		    </li>
+		</ul>
+		<p th:if="${#lists.isEmpty(breforeParticipatingEvents)}">現在、参加予定のイベントはありません。</p>
+
+		<h2>過去に参加したイベント</h2>
+		<ul th:if="${afterParticipatingEvents}" th:each="event : ${afterParticipatingEvents}">
+		    <li>
+		        <a th:href="@{/event-detail(eventId=${event.event_id})}" th:text="${event.event_title}">イベント名</a>
+		    </li>
+		</ul>
+		<p th:if="${#lists.isEmpty(afterParticipatingEvents)}">過去に参加したイベントはありません。</p>		
+		
+		<!-- 戻るボタン -->
+		<button type="button" onclick="history.back()" class="btn">戻る</button>
+	</div>
+</div>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>
