@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>ログイン</title>
-<link rel="stylesheet" th:href="@{/style/sub-common.css}" />
-</head>
-<body>
-	<!-- ON/OFFの切替エリアを挿入 -->
-	<div th:insert="~{components/body :: switch-area}"></div>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/base}">
 
-	<div id="card-folder">
-	    <div class="card">
-			<!-- バツボタン -->
-			<button class="close-button" onclick="goTop()">×</button>
-	        <h1>ログイン</h1>
-	        <form id="loginForm" method="post" action="/login">
-	            <label>メールアドレス:</label>
-	            <input type="email" name="address" required>
-	            <label>パスワード:</label>
-	            <input type="password" name="password" required>
-	            <button type="submit">ログイン</button>
-	        </form>
-	        
-			<a href="/register">新規登録はこちら</a><br/>
-	
-	        <!-- エラーメッセージ表示 -->
-	        <p th:if="${error}" th:text="${error}" class="message error"></p>
-		</div>
-	</div>
-	<script th:src="@{/js/common.js}"></script>
+<head>
+  <link rel="stylesheet" th:href="@{/style/sub-common.css}" />
+</head>
+
+<body>
+  <!-- ON/OFFの切替エリアを挿入 -->
+  <div th:insert="~{components/body :: switch-area}"></div>
+
+  <div id="card-folder">
+    <div class="card">
+      <!-- バツボタン -->
+      <button class="close-button" onclick="goTop()">×</button>
+
+      <h1>ログイン</h1>
+      <form id="loginForm" method="post" action="/login">
+        <label>メールアドレス:</label>
+        <input type="email" name="address" required>
+
+        <label>パスワード:</label>
+        <input type="password" name="password" required>
+
+        <button type="submit">ログイン</button>
+      </form>
+
+      <a href="/register">新規登録はこちら</a><br/>
+
+      <!-- エラーメッセージ表示 -->
+      <p th:if="${error}" th:text="${error}" class="message error"></p>
+    </div>
+  </div>
+
+  <script th:src="@{/js/common.js}"></script>
 </body>
+
 </html>

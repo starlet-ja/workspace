@@ -1,183 +1,146 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/base}">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta charset="UTF-8">
-  <title>MapLibre in Spring Boot</title>
-  <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
-  <!-- maplibreのCSSを上書きする -->
-  <link rel="stylesheet" th:href="@{/style/main-common.css}" />
   <link rel="stylesheet" th:href="@{/style/online-event.css}" />
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+
 <body>
-	<!-- ログインの確認 -->
-	<div id="login-status" th:attr="data-logged-in=${isLoggedIn}"></div>
-	
-	<div id="total-area">
-		<!-- ON/OFFの切替エリアを挿入 -->
-		<div th:insert="~{components/body :: switch-area}"></div>	
-		<!-- コントロールエリアを挿入 -->
-		<div th:insert="~{components/body :: top-area}"></div>	
-	</div>
-	<div id="event-list">
-	</div>
-	
-	<div id="add-event-button">＋ 村を作る</div>
-	
-	<!-- フォーム（最初は非表示） -->
-	<div id="comment-form">
-	  <!-- バツボタン -->
-	  <button class="close-button" onclick="goTop()">×</button>
+  <!-- ログインの確認 -->
+  <div id="login-status" th:attr="data-logged-in=${isLoggedIn}"></div>
 
-	  <input type="hidden" value="on" id="event-type" name="eventType" required>
+  <div id="total-area">
+    <!-- ON/OFFの切替エリアを挿入 -->
+    <div th:insert="~{components/body :: switch-area}"></div>
+    <!-- コントロールエリアを挿入 -->
+    <div th:insert="~{components/body :: top-area}"></div>
+  </div>
 
-	  <!-- ステップ1：村の名前 -->
-	  <div class="step" data-step="1">	
-	    <label for="event-title">村の名前（必須）</label><br />
-	    <input type="text" id="event-title" name="eventTitle" style="width:200px;" required><br />
-		<button type="button" class="next-button">次へ</button>
-	  </div>
-	  
-	  <!-- ステップ2：日付 -->
-	  <div class="step" data-step="2">	
-	    <label for="date">日付を選んでください（必須）</label><br />
-	    <input type="date" id="date" name="date" required><br />
-		<button type="button" class="prev-button">戻る</button>
-		<button type="button" class="next-button">次へ</button>
-	  </div>
-	
-	  <!-- ステップ3：開始時間 -->
-	  <div class="step" data-step="3">
-	    <label for="start">開始時間（必須）</label><br />
-	    <input type="time" id="start" name="start" required><br />
-		<button type="button" class="prev-button">戻る</button>
-		<button type="button" class="next-button">次へ</button>
-	  </div>
-	  
-	  <!-- ステップ4：募集人数 -->
-	  <div class="step" data-step="4">
-			  <label for="num-people">募集人数（必須）</label><br />
-			  <select name="num-people-min" id="num-people">
-			    <option value="">--最小人数を選択--</option>
-			    <option value="3">3人</option>
-				<option value="4">4人</option>
-				<option value="5">5人</option>
-				<option value="6">6人</option>
-				<option value="7">7人</option>
-				<option value="8">8人</option>
-				<option value="9">9人</option>
-				<option value="10">10人</option>
-				<option value="11">11人</option>
-				<option value="12">12人</option>
-				<option value="13">13人</option>
-				<option value="14">14人</option>
-				<option value="15">15人</option>
-				<option value="16">16人</option>
-				<option value="17">17人</option>
-				<option value="18">18人</option>
-				<option value="19">19人</option>
-				<option value="20">20人</option>
-			  </select>
-			  ～
-			  <select name="num-people-max" id="num-people">
-			    <option value="">--最大人数を選択--</option>
-				<option value="3">3人</option>
-				<option value="4">4人</option>
-				<option value="5">5人</option>
-				<option value="6">6人</option>
-				<option value="7">7人</option>
-				<option value="8">8人</option>
-				<option value="9">9人</option>
-				<option value="10">10人</option>
-				<option value="11">11人</option>
-				<option value="12">12人</option>
-				<option value="13">13人</option>
-				<option value="14">14人</option>
-				<option value="15">15人</option>
-				<option value="16">16人</option>
-				<option value="17">17人</option>
-				<option value="18">18人</option>
-				<option value="19">19人</option>
-				<option value="20">20人</option>
-			  </select><br />
-		  <button type="button" class="prev-button">戻る</button>
-		  <button type="button" class="next-button">次へ</button>
-	  </div>
-	  
-	  <!-- ステップ5：通信ツール -->
-	  <div class="step" data-step="5">
-	  <label for="com-method">通信ツール（必須）</label><br />
-	  <select name="com-method" id="com-method">
-	    <option value="">--通信ツールを選択--</option>
-	    <option value="Discord">Discord</option>
-	    <option value="Google Meet">Google Meet</option>
-	    <option value="Zoom">Zoom</option>
-	    <option value="Teams">Teams</option>
-	  </select><br />
-	  <button type="button" class="prev-button">戻る</button>
-	  <button type="button" class="next-button">次へ</button>
-	  </div>
-	  
-	  <!-- ステップ6：参加条件 -->
-	  <div class="step" data-step="6">
-		  <div style="font-weight:bold">参加条件（任意・複数選択可）</div>
-		  <div id="check-item-set">
-			  <div class="check-item">
-			    <input type="checkbox" id="beginner" name="beginner" value="1"/>
-			    <label style="font-weight:normal" id="check-item-name" for="beginner">初心者歓迎</label>
-			  </div>
-			  <div class="check-item">
-				<input type="checkbox" id="hono" name="hono" value="2" />
-				<label style="font-weight:normal" for="hono">敬語</label>
-			  </div>
-			  <div class="check-item">
-				<input type="checkbox" id="man" name="man" value="3" />
-				<label style="font-weight:normal" for="man">男性限定</label>
-			  </div>
-			  <div class="check-item">
-				<input type="checkbox" id="woman" name="woman" value="4" />
-				<label style="font-weight:normal" for="woman">女性限定</label>
-			  </div>
-			  <div class="check-item">
-			    <input type="checkbox" id="10yo" name="10yo" value="5" />
-			    <label style="font-weight:normal" for="10yo">10代</label>
-			  </div>
-			  <div class="check-item">
-				<input type="checkbox" id="20yo" name="20yo" value="6" />
-				<label style="font-weight:normal" for="20yo">20代</label>
-			  </div>
-			  <div class="check-item">
-			    <input type="checkbox" id="30yo" name="30yo" value="7" />
-			    <label style="font-weight:normal" for="30yo">30代</label>
-			  </div>
-			  <div class="check-item">
-				<input type="checkbox" id="40yo" name="40yo" value="8" />
-				<label style="font-weight:normal" for="40yo">40代</label>
-			  </div>
-			  <div class="check-item">
-			    <input type="checkbox" id="50yo" name="50yo" value="9" />
-			    <label style="font-weight:normal" for="50yo">50代</label>
-		      </div>
-			  <div class="check-item">
-				<input type="checkbox" id="60yo" name="60yo" value="10" />
-				<label style="font-weight:normal" for="60yo">60代</label>
-			  </div>
-		  </div>
-		  <button type="button" class="prev-button">戻る</button>
-		  <button type="button" class="next-button">次へ</button>
-	  </div>
-	  
-	  <!-- ステップ7：ひと言 -->
-	  <div class="step" data-step="7">
-	  	<label for="message">ひと言（任意）</label><br/>
-		<input type="text" id="message" name="message" style="width:200px;"><br />
-		<button type="button" class="prev-button">戻る</button>   
-		<button class="next-button" id="submitComment" style="margin-top: 10px;">村を作る</button>
-	  </div>
+  <div id="event-list"></div>
 
-	</div>
-	<script th:src="@{/js/common.js}"></script>
-	<script th:src="@{/js/online-event.js}"></script>
+  <div id="add-event-button">＋ 村を作る</div>
+
+  <!-- フォーム（最初は非表示） -->
+  <div id="comment-form">
+    <!-- バツボタン -->
+    <button class="close-button" onclick="goTop()">×</button>
+    <input type="hidden" value="on" id="event-type" name="eventType" required />
+
+    <!-- ステップ1：村の名前 -->
+    <div class="step" data-step="1">
+      <label for="event-title">村の名前（必須）</label><br />
+      <input type="text" id="event-title" name="eventTitle" style="width:200px;" required /><br />
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ2：日付 -->
+    <div class="step" data-step="2">
+      <label for="date">日付を選んでください（必須）</label><br />
+      <input type="date" id="date" name="date" required /><br />
+      <button type="button" class="prev-button">戻る</button>
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ3：開始時間 -->
+    <div class="step" data-step="3">
+      <label for="start">開始時間（必須）</label><br />
+      <input type="time" id="start" name="start" required /><br />
+      <button type="button" class="prev-button">戻る</button>
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ4：募集人数 -->
+    <div class="step" data-step="4">
+      <label for="num-people">募集人数（必須）</label><br />
+      <select name="num-people-min" id="num-people">
+        <option value="">--最小人数を選択--</option>
+        <option value="3">3人</option>
+        <option value="4">4人</option>
+        <option value="5">5人</option>
+        <option value="6">6人</option>
+        <option value="7">7人</option>
+        <option value="8">8人</option>
+        <option value="9">9人</option>
+        <option value="10">10人</option>
+        <option value="11">11人</option>
+        <option value="12">12人</option>
+        <option value="13">13人</option>
+        <option value="14">14人</option>
+        <option value="15">15人</option>
+        <option value="16">16人</option>
+        <option value="17">17人</option>
+        <option value="18">18人</option>
+        <option value="19">19人</option>
+        <option value="20">20人</option>
+      </select>
+      ～
+      <select name="num-people-max" id="num-people">
+        <option value="">--最大人数を選択--</option>
+        <option value="3">3人</option>
+        <option value="4">4人</option>
+        <option value="5">5人</option>
+        <option value="6">6人</option>
+        <option value="7">7人</option>
+        <option value="8">8人</option>
+        <option value="9">9人</option>
+        <option value="10">10人</option>
+        <option value="11">11人</option>
+        <option value="12">12人</option>
+        <option value="13">13人</option>
+        <option value="14">14人</option>
+        <option value="15">15人</option>
+        <option value="16">16人</option>
+        <option value="17">17人</option>
+        <option value="18">18人</option>
+        <option value="19">19人</option>
+        <option value="20">20人</option>
+      </select><br />
+      <button type="button" class="prev-button">戻る</button>
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ5：通信ツール -->
+    <div class="step" data-step="5">
+      <label for="com-method">通信ツール（必須）</label><br />
+      <select name="com-method" id="com-method">
+        <option value="">--通信ツールを選択--</option>
+        <option value="Discord">Discord</option>
+        <option value="Google Meet">Google Meet</option>
+        <option value="Zoom">Zoom</option>
+        <option value="Teams">Teams</option>
+      </select><br />
+      <button type="button" class="prev-button">戻る</button>
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ6：参加条件 -->
+    <div class="step" data-step="6">
+      <div style="font-weight:bold">参加条件（任意・複数選択可）</div>
+      <div id="check-item-set">
+        <div class="check-item"><input type="checkbox" id="beginner" name="beginner" value="1" /><label for="beginner">初心者歓迎</label></div>
+        <div class="check-item"><input type="checkbox" id="hono" name="hono" value="2" /><label for="hono">敬語</label></div>
+        <div class="check-item"><input type="checkbox" id="man" name="man" value="3" /><label for="man">男性限定</label></div>
+        <div class="check-item"><input type="checkbox" id="woman" name="woman" value="4" /><label for="woman">女性限定</label></div>
+        <div class="check-item"><input type="checkbox" id="10yo" name="10yo" value="5" /><label for="10yo">10代</label></div>
+        <div class="check-item"><input type="checkbox" id="20yo" name="20yo" value="6" /><label for="20yo">20代</label></div>
+        <div class="check-item"><input type="checkbox" id="30yo" name="30yo" value="7" /><label for="30yo">30代</label></div>
+        <div class="check-item"><input type="checkbox" id="40yo" name="40yo" value="8" /><label for="40yo">40代</label></div>
+        <div class="check-item"><input type="checkbox" id="50yo" name="50yo" value="9" /><label for="50yo">50代</label></div>
+        <div class="check-item"><input type="checkbox" id="60yo" name="60yo" value="10" /><label for="60yo">60代</label></div>
+      </div>
+      <button type="button" class="prev-button">戻る</button>
+      <button type="button" class="next-button">次へ</button>
+    </div>
+
+    <!-- ステップ7：ひと言 -->
+    <div class="step" data-step="7">
+      <label for="message">ひと言（任意）</label><br />
+      <input type="text" id="message" name="message" style="width:200px;" /><br />
+      <button type="button" class="prev-button">戻る</button>
+      <button class="next-button" id="submitComment" style="margin-top: 10px;">村を作る</button>
+    </div>
+  </div>
+
+  <script th:src="@{/js/common.js}"></script>
+  <script th:src="@{/js/online-event.js}"></script>
 </body>
 </html>
