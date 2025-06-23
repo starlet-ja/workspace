@@ -9,12 +9,6 @@ html, body {
     touch-action: none; /* 全てのジェスチャを無効にする */
     overscroll-behavior: none;  /* iOSのbounceも防止 */
 	font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-
-	background-image: url('/img/asa-village.png');
-	background-size: cover;            /* 画面全体にフィット */
-	background-position: center;       /* 中央に配置 */
-	background-repeat: no-repeat;      /* 繰り返さない */
-	background-attachment: fixed;      /* スクロール時に固定 */
 }
 
 body::before {

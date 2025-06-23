@@ -6,6 +6,12 @@ html, body {
 /*	height: 100%;*/
 	background-color: #f9f9f9;
 	font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+	
+	background-image: url('/img/asa-village.png');
+	background-size: cover;            /* 画面全体にフィット */
+	background-position: center;       /* 中央に配置 */
+	background-repeat: no-repeat;      /* 繰り返さない */
+	background-attachment: fixed;      /* スクロール時に固定 */
 }
 
 /* トータルエリア */
