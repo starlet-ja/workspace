@@ -9,6 +9,21 @@ html, body {
     touch-action: none; /* 全てのジェスチャを無効にする */
     overscroll-behavior: none;  /* iOSのbounceも防止 */
 	font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+
+	background-image: url('/img/asa-village.png');
+	background-size: cover;            /* 画面全体にフィット */
+	background-position: center;       /* 中央に配置 */
+	background-repeat: no-repeat;      /* 繰り返さない */
+	background-attachment: fixed;      /* スクロール時に固定 */
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	background-color: rgba(0, 0, 0, 0.3); /* ここで暗さを調整 */
+	pointer-events: none; /* 背景として扱う */
+	z-index: 0;
 }
 
 #map {
@@ -51,34 +66,105 @@ html, body {
 }
 
 /* オンボタン */
+/*#online.active {*/
+/*	width: 100%;*/
+/*	height: 30px;*/
+/*	background-color: #dc3545;*/
+/*	display: flex;*/
+/*	align-items: center;*/
+/*	justify-content: center;*/
+/*}*/
 #online.active {
-	width: 100%;
-	height: 30px;
-	background-color: #dc3545;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(135deg, #7e0000, #2c0000); /* 血のような赤黒グラデーション */
+    color: #fff;
+    font-family: 'Creepster', cursive; /* ホラー感のあるフォント（Google Fonts使用可能） */
+    font-size: 1.2em;
+    text-shadow: 1px 1px 3px #000;
+    border: 2px solid #520000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+	box-sizing: border-box;
 }
 
+#online.active:hover {
+    background: linear-gradient(135deg, #9e0000, #1a0000);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+    transform: scale(1.05);
+}
+
+
 /* オフボタン */
+/*#offline.active {*/
+/*	width: 100%;*/
+/*	height: 30px;*/
+/*	background-color: #007BFF;*/
+/*	display: flex;*/
+/*	align-items: center;*/
+/*	justify-content: center;*/
+/*}*/
 #offline.active {
-	width: 100%;
-	height: 30px;
-	background-color: #007BFF;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(90deg, #003366, #000066);
+    color: #f8f8f8;
+    font-family: 'Creepster', cursive;
+    font-size: 20px;
+    text-shadow: 0 0 3px #00f, 0 0 6px #66f;
+    border: none;
+    box-shadow: 0 0 10px #00f, 0 0 20px #33f inset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 2px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+#offline.active:hover {
+    background: linear-gradient(90deg, #000066, #003366);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #3399ff, 0 0 25px #66ccff inset;
 }
 
 /* ボタン押下時 */
+/*#online,*/
+/*#offline {*/
+/*	width: 100%;*/
+/*	height: 30px;*/
+/*	background-color: #c0c0c0;*/
+/*	display: flex;*/
+/*	align-items: center;*/
+/*	justify-content: center;*/
+/*}*/
 #online,
 #offline {
-	width: 100%;
-	height: 30px;
-	background-color: #c0c0c0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(90deg, #444, #333);
+    color: #eee;
+    font-family: 'Creepster', cursive;
+    font-size: 18px;
+    text-shadow: 0 0 2px #666, 0 0 4px #999;
+    border: none;
+    box-shadow: inset 0 0 4px #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+#online:hover,
+#offline:hover {
+    background: linear-gradient(90deg, #555, #2e2e2e);
+    color: #fff;
+    box-shadow: 0 0 8px #999, inset 0 0 8px #aaa;
+    transform: scale(1.02);
 }
 
 /* トップエリア */
@@ -114,18 +200,37 @@ html, body {
 }
 
 /*カレンダーエリア*/
-#calendar-area{
+/*#calendar-area{*/
+/*	width: 500px;*/
+/*	height: 80px;*/
+/*	padding: 5px;*/
+/*	border: solid 3px #000000;*/
+/*	border-radius: 5px;*/
+/*	background: #000000;*/
+/*	display: flex;*/
+/*	flex-direction: column;*/
+/*	align-items: flex-start;*/
+/*	box-sizing: border-box;*/
+/*	color: #ffffff;*/
+/*}*/
+
+#calendar-area {
 	width: 500px;
 	height: 80px;
 	padding: 5px;
-	border: solid 3px #000000;
+	border: solid 3px #3b2f1c; /* 暗めの木の縁色 */
 	border-radius: 5px;
-	background: #000000;
+	background-image: url('/img/wood.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	box-sizing: border-box;
-	color: #ffffff;
+	color: #fdf5e6; /* 古紙のような色合い */
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5); /* 彫り感を出す */
+	text-shadow: 0 0 5px #ff0000; /* 軽くホラーな赤ネオン効果 */
 }
 
 /*カレンダータイトル*/
@@ -151,20 +256,43 @@ html, body {
 }
 
 /*コントロールボタンのデザイン*/
+/*.menu-button {*/
+/*	width: 100px;*/
+/*    height: 80px;*/
+/*    padding: 5px;*/
+/*    border: solid 3px #000000;*/
+/*	margin-left: 10px;*/
+/*    border-radius: 5px;*/
+/*    background-color: #000000;*/
+/*    color: #ffffff;*/
+/*    font-size: 15px;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.3s ease, transform 0.2s ease;*/
+/*	box-sizing:border-box;*/
+/*}*/
 .menu-button {
 	width: 100px;
-    height: 80px;
-    padding: 5px;
-    border: solid 3px #000000;
+	height: 80px;
+	padding: 5px;
 	margin-left: 10px;
-    border-radius: 5px;
-    background-color: #000000;
-    color: #ffffff;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-	box-sizing:border-box;
+	border: 3px solid #3b2f2f; /* 焦げ色 */
+	border-radius: 5px;
+	background: url('/img/wood.png');
+	background-size: cover;
+	background-position: center;
+	color: #e0e0e0;
+	font-size: 15px;
+	box-sizing: border-box;
+	cursor: pointer;
+	text-shadow: 0 0 5px #ff0000; /* 軽くホラーな赤ネオン効果 */
+	transition: transform 0.2s ease, filter 0.2s ease;
 }
+
+.menu-button:hover {
+	transform: scale(1.05);
+	filter: brightness(1.2);
+}
+
 
 /* 参加条件の詳細 */
 #check-item-set .check-item {

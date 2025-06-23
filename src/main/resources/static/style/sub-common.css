@@ -79,7 +79,7 @@ html, body {
   left: 50%;
   width: 100%;
   transform: translateX(-50%);
-  background-color: #f9f9f9;
+/*  background-color: #f9f9f9;*/
   font-family: 'Helvetica Neue', Arial, sans-serif;
   margin: 0;
   padding: 20px;
@@ -89,16 +89,30 @@ html, body {
   box-sizing: border-box; /* ←修正ここ！ */
 }
 
+/*.card {*/
+/*	position: relative;*/
+/*    background-color: #fff;*/
+/*    padding: 24px;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 4px rgba(0,0,0,0.05);*/
+/*    width: 100%;*/
+/*    max-width: 360px;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
 .card {
 	position: relative;
-    background-color: #fff;
+    background: url('/img/blood-paper.png') no-repeat center center / cover;
     padding: 24px;
-    border: 1px solid #ddd;
+    border: 1px solid #4a1a1a; /* 血っぽい色味 */
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* 少し強めの影でホラー感 */
     width: 100%;
     max-width: 360px;
     box-sizing: border-box;
+    color: #2b2b2b; /* 読みやすさ向上のための濃い文字色 */
+    backdrop-filter: blur(1px); /* 背景を柔らかく */
 }
 
 .card h1 {
@@ -159,37 +173,82 @@ html, body {
 /*    margin-bottom: 12px;*/
 }
 
+/*.card button {*/
+/*    display: inline-block;*/
+/*    padding: 10px 20px;*/
+/*    background-color: #007BFF;*/
+/*    color: #fff;*/
+/*    border-radius: 4px;*/
+/*    font-size: 14px;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    transition: background-color 0.2s ease;*/
+/*    width: 100%;*/
+/*}*/
+
 .card button {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007BFF;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
+    color: #e0f7ff;
+    font-size: 16px;
     border: none;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+    border-radius: 4px;
     width: 100%;
+    cursor: pointer;
+    text-align: center;
 }
 
+
 /* バツボタン */
+/*.card .close-button {*/
+/*  position: absolute;*/
+/*  top: 5px;*/
+/*  right: 5px;*/
+/*  width: 35px;*/
+/*  height: 35px;*/
+/*  background-color: #000000;*/
+/*  color: #ffffff;*/
+/*  border: none;*/
+/*  border-radius: 50%;*/
+/*  font-size: 25px;*/
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*  line-height: 1;*/
+/*}*/
 .card .close-button {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 35px;
   height: 35px;
-  background-color: #000000;
+  background: #000000;
   color: #ffffff;
-  border: none;
+  border: 1px solid #000000;
   border-radius: 50%;
-  font-size: 25px;
+  font-size: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  box-sizing: border-box;
   line-height: 1;
+  cursor: pointer;
+  box-shadow:
+    0 0 5px #000000,
+    0 0 10px #000000 inset;
+  transition: all 0.3s ease;
+  font-family: 'Creepster', cursive, sans-serif;
+}
+
+.card .close-button:hover {
+  background: #111111;
+  color: #000000;
+  box-shadow:
+    0 0 8px #000000,
+    0 0 15px #000000 inset;
+  transform: scale(1.05);
 }
 
 .card ul {
@@ -252,19 +311,48 @@ html, body {
 }
 
 
+/*.btn {*/
+/*    display: inline-block;*/
+/*    padding: 10px 20px;*/
+/*	margin-bottom: 10px;*/
+/*    font-size: 16px;*/
+/*    color: #fff;*/
+/*    background-color: #007BFF;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    text-align: center;*/
+/*    text-decoration: none;*/
+/*    transition: background-color 0.2s ease;*/
+/*}*/
+
+/*.btn:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/
+
 .btn {
     display: inline-block;
     padding: 10px 20px;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
     font-size: 16px;
-    color: #fff;
-    background-color: #007BFF;
+    color: #e0f7ff;
+    background: linear-gradient(90deg, #001133, #003366);
+    font-family: 'Creepster', cursive, 'Yu Gothic', 'Meiryo', sans-serif;
+    text-shadow: 0 0 2px #33ccff, 0 0 6px #00ccff;
     border: none;
     border-radius: 4px;
+    box-shadow: 0 0 10px #005577, 0 0 20px #00ccff inset;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.2s ease;
+    letter-spacing: 1px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #003366, #001133);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #33ccff, 0 0 25px #66ffff inset;
 }
 
 /* aタグのときも明示的にホワイト */
@@ -273,16 +361,36 @@ a.btn {
     text-decoration: none !important;
 }
 
-.btn:hover {
-    background-color: #0056b3;
-}
+
+/*.btn.logout {*/
+/*    background-color: #dc3545;*/
+/*}*/
+
+/*.btn.logout:hover {*/
+/*    background-color: #c82333;*/
+/*}*/
 
 .btn.logout {
-    background-color: #dc3545;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 20px;
+    background: linear-gradient(90deg, #5b0000, #2c0d0d);
+    color: #ffffff;
+    font-family: 'Creepster', cursive, 'Yu Gothic', 'Meiryo', sans-serif;
+    font-size: 16px;
+    text-shadow: 0 0 3px #ff0000, 0 0 6px #cc0000;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0 0 10px #8b0000, 0 0 20px #b30000 inset;
+    cursor: pointer;
+    letter-spacing: 2px;
+    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .btn.logout:hover {
-    background-color: #c82333;
+    background: linear-gradient(90deg, #2c0d0d, #5b0000);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff3333, 0 0 25px #ff6666 inset;
 }
 
 .login-hint {

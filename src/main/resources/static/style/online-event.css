@@ -2,6 +2,19 @@
 
 /* PC (幅1025px以上) */
 
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/img/village.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff; /* テキストが読めるように白系に */
+    font-family: 'Yu Gothic', 'Meiryo', sans-serif;
+}
+
+
 /* イベントリスト */
 #event-list {
 	position:absolute;
@@ -20,16 +33,34 @@
 	width: 100%;
 	padding: 20px;
 	margin-bottom: 20px;
-    background-color: #EEEEEE;
+	background-color: rgba(238, 238, 238, 0.2); /* ← 半透明グレー */
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
 	box-sizing: border-box;
+	backdrop-filter: blur(4px); /* ぼかし効果（必要なら） */
+	border: 1px solid rgba(255, 255, 255, 0.1); /* オプション：枠線 */
+	border-radius: 10px; /* オプション：角丸 */
 }
 
-.event a{
-	color: #007BFF;
-	text-decoration: none;
+.event a {
+    color: #ffeaea; /* 明るい赤みのある白系で読みやすく */
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow:
+        0 0 2px #ff3b3b,
+        0 0 6px #ff1a1a,
+        1px 1px 2px #000000; /* 黒の縁取りで読みやすく */
+    transition: all 0.3s ease;
+}
+
+.event a:hover {
+    color: #ffffff;
+    text-shadow:
+        0 0 3px #ffffff,
+        0 0 6px #ff1a1a,
+        0 0 10px #ff3333,
+        1px 1px 2px #000000;
 }
 
 /*吹き出し作成フォーム*/
@@ -47,21 +78,48 @@ box-sizing: border-box;
 z-index: 1002;
 }
 
+/*#add-event-button {*/
+/*    position: fixed;*/
+/*    right: 20px;*/
+/*    bottom: 20px;*/
+/*    display: inline-block;*/
+/*    padding: 15px 20px;*/
+/*    font-size: 16px;*/
+/*    background-color: #007BFF;*/
+/*    color: #fff;*/
+/*    text-decoration: none;*/
+/*    border-radius: 50px;*/
+/*	z-index: 1001;*/
+/*}*/
+
 #add-event-button {
     position: fixed;
     right: 20px;
     bottom: 20px;
     display: inline-block;
-    padding: 15px 20px;
-    font-size: 16px;
-    background-color: #007BFF;
+    padding: 15px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    background-image: url('/img/wood.png');
+    background-size: cover;
+    background-position: center;
     color: #fff;
-    text-decoration: none;
-    border-radius: 50px;
-/*    box-shadow: 0 4px 6px rgba(0,0,0,0.3);*/
-/*    transition: background-color 0.3s, transform 0.2s;*/
-	z-index: 1001;
+    text-shadow: 1px 1px 2px #000;
+	border: solid 3px #3b2f1c;
+    border-radius: 15px;
+/*    box-shadow: 0 0 15px rgba(92, 64, 51, 0.6);*/
+    font-family: 'Creepster', cursive, 'Yu Gothic', 'Meiryo', sans-serif;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    cursor: pointer;
 }
+
+#add-event-button:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 25px rgba(255, 120, 0, 0.7);
+    transform: scale(1.05);
+}
+
 
 /*フォームのデザイン*/
 #item {
