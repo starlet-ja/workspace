@@ -27,8 +27,9 @@
 
       <a href="/register">新規登録はこちら</a><br/>
 
-      <!-- エラーメッセージ表示 -->
-      <p th:if="${error}" th:text="${error}" class="message error"></p>
+	  <!-- エラーメッセージ or 完了メッセージ -->
+	  <p th:if="${error}" th:text="${error}" style="color:red;"></p>
+	  <p th:if="${message}" th:text="${message}" style="color:green;"></p>
     </div>
   </div>
 

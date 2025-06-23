@@ -120,11 +120,11 @@ public class UserService {
             String hashedPassword = passwordEncoder.encode(request.getPassword());
             jdbcTemplate.update("INSERT INTO user_password(user_id, hashed_password) VALUES (?, ?)", newUserId, hashedPassword);
             // user_nameにデフォルト値を登録
-            jdbcTemplate.update("INSERT INTO user_name(user_id, user_name) VALUES (?, ?)", newUserId, "未設定");
+            jdbcTemplate.update("INSERT INTO user_name(user_id, user_name) VALUES (?, ?)", newUserId, Constants.DEFAULT_USER_NAME);
             // user_genderにデフォルト値を登録
-            jdbcTemplate.update("INSERT INTO user_gender(user_id, user_gender) VALUES (?, ?)", newUserId, "未選択");
+            jdbcTemplate.update("INSERT INTO user_gender(user_id, user_gender) VALUES (?, ?)", newUserId, Constants.DEFAULT_USER_GENDER);
             // user_profileにデフォルト値を登録
-            jdbcTemplate.update("INSERT INTO user_profile(user_id, user_profile) VALUES (?, ?)", newUserId, "");
+            jdbcTemplate.update("INSERT INTO user_profile(user_id, user_profile) VALUES (?, ?)", newUserId, Constants.DEFAULT_USER_PROFILE);
 
             return "success";
         } catch (Exception e) {
