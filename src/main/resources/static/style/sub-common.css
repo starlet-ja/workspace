@@ -107,49 +107,64 @@ html, body {
 /*    box-sizing: border-box;*/
 /*}*/
 
+/*.card {*/
+/*	position: relative;*/
+/*	background-color: #fff;*/
+/*	padding: 24px;*/
+/*    border: 1px solid #4a1a1a;  血っぽい色味 */
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 4px 8px rgba(0,0,0,0.3);  少し強めの影でホラー感 */
+/*    width: 100%;*/
+/*    max-width: 360px;*/
+/*    box-sizing: border-box;*/
+/*    color: #2b2b2b;  読みやすさ向上のための濃い文字色 */
+/*    backdrop-filter: blur(1px);  背景を柔らかく */
+/*}*/
+
 .card {
 	position: relative;
-    background: url('/img/blood-paper.jpg') no-repeat center center / cover;
-    padding: 24px;
-    border: 1px solid #4a1a1a; /* 血っぽい色味 */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3); /* 少し強めの影でホラー感 */
-    width: 100%;
-    max-width: 360px;
-    box-sizing: border-box;
-    color: #2b2b2b; /* 読みやすさ向上のための濃い文字色 */
-    backdrop-filter: blur(1px); /* 背景を柔らかく */
+	background: linear-gradient(135deg, #2c1a1a, #1a0000); /* 血のような暗い赤系グラデ */
+	padding: 24px;
+	border: 1px solid #4a1a1a; /* 血っぽい色味 */
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* 暗めの強調影 */
+	width: 100%;
+	max-width: 360px;
+	box-sizing: border-box;
+	color: #ffffff; /* 灰白の文字色で読ませる */
+	backdrop-filter: blur(1px); /* 背景を柔らかく */
+	background-blend-mode: multiply;
 }
 
 .card h1 {
     font-size: 24px;
-    color: #222;
+    color: #ffffff;
     margin-bottom: 16px;
 	text-align: left;
 }
 
 .card h2 {
     font-size: 20px;
-    color: #222;
+    color: #ffffff;
     margin-bottom: 16px;
     text-align: left;
 }
 
 .card p {
     font-size: 14px;
-    color: #444;
+    color: #ffffff;
     margin: 8px 0 4px;
 }
 
 .card p b {
-    color: #222;
+    color: #ffffff;
 }
 
 .card label {
     display: block;
     margin-bottom: 6px;
     font-weight: bold;
-    color: #444;
+    color: #ffffff;
     font-size: 14px;
 }
 

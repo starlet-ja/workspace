@@ -43,17 +43,6 @@ body {
 	border-radius: 5px;
 }
 
-/*.event a {*/
-/*    color: #ffeaea;  明るい赤みのある白系で読みやすく */
-/*    font-weight: bold;*/
-/*    text-decoration: none;*/
-/*    text-shadow:*/
-/*        0 0 2px #ff3b3b,*/
-/*        0 0 6px #ff1a1a,*/
-/*        1px 1px 2px #000000;  黒の縁取りで読みやすく */
-/*    transition: all 0.3s ease;*/
-/*}*/
-
 .event a {
     font-size: 14px;
     color: #003366;
@@ -66,54 +55,8 @@ body {
          1px  1px 0 #d3d3d3;
 }
 
-/*吹き出し作成フォーム*/
-/*#comment-form {*/
-/*overflow-y: auto;*/
-/*display:none;*/
-/*position:absolute;*/
-/*top: 30px;*/
-/*right: 0px;*/
-/*width: 100%;*/
-/*background:#fff;*/
-/*padding:50px 10px;*/
-/*border:1px solid #ccc;*/
-/*box-sizing: border-box;*/
-/*z-index: 1002;*/
-/*}*/
-#comment-form {
-  overflow-y: auto;
-  display: none;
-  position: absolute;
-  top: 30px;
-  right: 0;
-  width: 100%;
-  padding: 50px 10px;
-  background-image: url('/img/blood-paper.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: 2px solid #660000;
-  border-radius: 6px;
-  box-shadow: 0 0 15px rgba(255, 0, 0, 0.4), 0 0 30px rgba(0, 0, 0, 0.6) inset;
-  color: #1a0000;
-  box-sizing: border-box;
-  z-index: 1002;
-}
 
 
-/*#add-event-button {*/
-/*    position: fixed;*/
-/*    right: 20px;*/
-/*    bottom: 20px;*/
-/*    display: inline-block;*/
-/*    padding: 15px 20px;*/
-/*    font-size: 16px;*/
-/*    background-color: #007BFF;*/
-/*    color: #fff;*/
-/*    text-decoration: none;*/
-/*    border-radius: 50px;*/
-/*	z-index: 1001;*/
-/*}*/
 
 #add-event-button {
     position: fixed;
@@ -141,131 +84,6 @@ body {
     filter: brightness(1.2);
     box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
     transform: scale(1.05);
-}
-
-
-/*フォームのデザイン*/
-#item {
-    margin-top: 15px;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fafafa;
-}
-
-#check-item-set {
-	display:flex;
-	flex-direction: row;
-	justify-content: flex-start;
-	flex-wrap: wrap;
-}
-
-#item label {
-    font-weight: bold;
-    display: block;
-/*    margin-bottom: 6px;*/
-	margin-right: 20px;
-    color: #333;
-}
-
-#item .check-item {
-	width:150px;
-	margin-top: 10px;
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-start;
-}
-
-#check-item-name {
-	width: 100px;
-}
-
-/* 村作成フォームのバツボタン */
-#comment-form .close-button {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 35px;
-  height: 35px;
-  background-color: #000000;
-  color: #ffffff;
-  border: none;
-  border-radius: 50%;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  box-sizing: border-box;
-  line-height: 1;
-}
-/* 村作成フォームの次 */
-/*.next-button{*/
-/*  margin-top: 10px;*/
-/*  padding: 8px 16px;*/
-/*  background-color: #007BFF;*/
-/*  border: none;*/
-/*  border-radius: 4px;*/
-/*  color: white;*/
-/*  cursor: pointer;*/
-/*}*/
-
-.next-button {
-    display: inline-block;
-    padding: 10px 20px;
-	margin-top: 10px;
-    font-size: 16px;
-    color: #e0f7ff;
-    background: linear-gradient(90deg, #001133, #003366);
-    text-shadow: 0 0 2px #33ccff, 0 0 6px #00ccff;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0 0 10px #005577, 0 0 20px #00ccff inset;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.next-button:hover {
-    background: linear-gradient(90deg, #003366, #001133);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px #33ccff, 0 0 25px #66ffff inset;
-}
-
-/* 村作成フォームの戻る */
-/*.prev-button {*/
-/*  margin-top: 10px;*/
-/*  padding: 8px 16px;*/
-/*  background-color: #6c757d;*/
-/*  border: none;*/
-/*  border-radius: 4px;*/
-/*  color: white;*/
-/*  cursor: pointer;*/
-/*}*/
-.prev-button {
-    display: inline-block;
-    padding: 10px 20px;
-	margin-top: 10px;
-    font-size: 16px;
-    color: #e0f7ff;
-    background: linear-gradient(90deg, #444444, #222222);
-    text-shadow: 0 0 2px #000, 0 0 6px #000;
-    border: none;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(50, 50, 50, 0.6), 0 0 20px rgba(0, 0, 0, 0.4) inset;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    letter-spacing: 1px;
-    transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-}
-
-.prev-button:hover {
-    background: linear-gradient(90deg, #222222, #444444);
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(100, 100, 100, 0.7), 0 0 25px rgba(0, 0, 0, 0.5) inset;
 }
 
 /* タブレット (幅601px～1024px) */
