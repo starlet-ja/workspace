@@ -13,6 +13,25 @@ function formatJapaneseDate(isoString) {
 	return `${month}月${day}日${hours}:${minutes}`;
 }
 
+// 対象のテキストをコピー
+function copyEventUrl(selectId) {
+   const input = document.getElementById(selectId);
+   input.select();
+   input.setSelectionRange(0, 99999);
+   document.execCommand("copy");
+   alert("コピーしました: " + input.value);
+}
+//async function copyEventUrl(selectId) {
+//  const input = document.getElementById(selectId);
+//  try {
+//    await navigator.clipboard.writeText(input.value);
+//    alert("URLをコピーしました: " + input.value);
+//  } catch (err) {
+//    alert("コピーに失敗しました");
+//  }
+//}
+
+
 // コメントを取得
 function getComments(eventId) {
 	$.ajax({

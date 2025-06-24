@@ -27,6 +27,8 @@ function setEventData(clickedLngLat) {
 	});
 	// 通信ツール
 	let comMethod = null;
+	// 招待リンク
+	let inviteLink = null;
 	// 緯度
 	let lat = null;
 	// 経度
@@ -34,6 +36,8 @@ function setEventData(clickedLngLat) {
 	if (eventType === 'on') {
 		// 通信ツール
 		comMethod = document.getElementById('com-method').value;
+		// 招待リンク
+		inviteLink = document.getElementById('invite-link').value;
 		// 必須項目のバリデーションチェック
 		if (!eventTitle || !date || !startTime || !numPeopleMin || !numPeopleMax || !comMethod) {
 		  alert("必須項目を入力して下さい");
@@ -70,6 +74,7 @@ function setEventData(clickedLngLat) {
 	  numPeopleMin: numPeopleMin,
 	  numPeopleMax: numPeopleMax,
 	  comMethod: comMethod,
+	  inviteLink: inviteLink,
 	  lat: lat,
 	  lng: lng,
 	  restrictions: restrictions,

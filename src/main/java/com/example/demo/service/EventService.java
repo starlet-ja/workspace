@@ -85,6 +85,7 @@ public class EventService {
         Double lat = null;
         Double lng = null;
         String comMethod = (String) postMessage.get("comMethod");
+        String inviteLink = (String) postMessage.get("inviteLink");
         String message = (String) postMessage.get("message");
 
 
@@ -93,6 +94,7 @@ public class EventService {
             lat = ((Number) postMessage.get("lat")).doubleValue();
             lng = ((Number) postMessage.get("lng")).doubleValue();
             comMethod = null;
+            inviteLink = null;
         }
         
         // ラムダ式内で使う変数はfinalとする
@@ -105,8 +107,7 @@ public class EventService {
         final Integer numPeopleMin = Integer.valueOf((String) postMessage.get("numPeopleMin"));
         final Integer numPeopleMax = Integer.valueOf((String) postMessage.get("numPeopleMax"));
         final String finalComMethod = comMethod;
-        
-        
+        final String finalInviteLink = inviteLink;
 
         // restrictions は List<String> で受け取って List<Integer> に変換
         List<Integer> restrictions = new ArrayList<>();
@@ -122,8 +123,8 @@ public class EventService {
         jdbcTemplate.update(con -> {
             PreparedStatement ps = con.prepareStatement(
                 "INSERT INTO event (start_time, end_time, lat, lng, user_id, " +
-                "event_date, event_title, recruit_min, recruit_max, com_method, event_type) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                "event_date, event_title, recruit_min, recruit_max, com_method, event_type, invite_link) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 Statement.RETURN_GENERATED_KEYS
             );
             ps.setObject(1, startTime);
@@ -137,6 +138,7 @@ public class EventService {
             ps.setObject(9, numPeopleMax, java.sql.Types.INTEGER);
             ps.setString(10, finalComMethod);
             ps.setString(11, eventType);
+            ps.setString(12, finalInviteLink);
             return ps;
         }, keyHolder);
 
@@ -175,7 +177,7 @@ public class EventService {
         return jdbcTemplate.queryForObject(
             "SELECT ev.event_id, ev.event_title, ev.user_id, ev.event_date, " +
             "(SELECT user_name FROM user_name WHERE user_id = ev.user_id) AS host, " +
-            "ev.start_time, ev.end_time, ed.event_message, ev.recruit_min, ev.recruit_max " +
+            "ev.start_time, ev.end_time, ev.com_method, ev.invite_link, ed.event_message, ev.recruit_min, ev.recruit_max " +
             "FROM event ev LEFT JOIN event_details ed ON ev.event_id = ed.event_id " +
             "WHERE ev.event_id = ?",
             (rs, rowNum) -> {
@@ -186,6 +188,8 @@ public class EventService {
                 d.host = rs.getString("host");
                 d.eventDate = rs.getDate("event_date").toLocalDate();
                 d.startTime = rs.getTime("start_time").toLocalTime();
+                d.comMethod = rs.getString("com_method");
+                d.inviteLink = rs.getString("invite_link");
                 d.eventMessage = rs.getString("event_message");
                 d.recruitMin = rs.getInt("recruit_min");
                 d.recruitMax = rs.getInt("recruit_max");

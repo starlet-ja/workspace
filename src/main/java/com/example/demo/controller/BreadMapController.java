@@ -257,6 +257,7 @@ public class BreadMapController {
 	}
 
 	
+	// イベントの詳細
     @Value("${base.url}")
     private String baseUrl;
 	@GetMapping("/event-detail")

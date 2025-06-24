@@ -11,7 +11,6 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     color: #fff; /* テキストが読めるように白系に */
-    font-family: 'Yu Gothic', 'Meiryo', sans-serif;
 }
 
 
@@ -73,8 +72,6 @@ body {
     text-shadow: 1px 1px 2px #000;
 	border: solid 3px #3b2f1c;
     border-radius: 5px;
-/*    box-shadow: 0 0 15px rgba(92, 64, 51, 0.6);*/
-    font-family: 'Creepster', cursive, 'Yu Gothic', 'Meiryo', sans-serif;
     transition: all 0.3s ease;
     z-index: 1001;
     cursor: pointer;

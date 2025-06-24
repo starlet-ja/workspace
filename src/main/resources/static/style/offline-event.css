@@ -26,7 +26,6 @@
     padding: 5px;
     pointer-events: auto;
     position: relative;
-    font-family: "Segoe UI", "Helvetica Neue", "Arial", sans-serif; /* モダンフォント */
 	/* 全体の pointer-events を禁止 */
 	pointer-events: none;
 }
@@ -50,6 +49,7 @@
     font-size: 12px;
     color: #000; /* しっかり黒め */
     line-height: 1.5;
+	font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
 }
 
 /* 「詳細」ボタン風 */

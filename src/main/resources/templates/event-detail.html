@@ -14,14 +14,14 @@
   <div id="card-folder">
     <div class="card">
       <!-- バツボタン -->
-      <button class="close-button" onclick="goBack()">×</button>
+      <button class="close-button" onclick="goTop()">×</button>
 
       <!-- このページのURLをコピーする -->
       <p class="url-copy">
         この村のURL:
         <span class="url-copy-wrapper">
           <input type="text" id="eventUrlInput" th:value="${eventUrl}" readonly />
-          <button onclick="copyEventUrl()" class="btn" style="margin-bottom: 0px">コピー</button>
+          <button onclick="copyEventUrl('eventUrlInput')" class="btn" style="margin-bottom: 0px">コピー</button>
         </span>
       </p>
 
@@ -29,12 +29,29 @@
       <p>📅 日付: <span th:text="${eventDetail.eventDate}"></span></p>
       <p>🕒 開始: <span th:text="${eventDetail.startTime}"></span></p>
       <p th:if="${eventDetail.eventMessage}">📝 主催者コメント: <span th:text="${eventDetail.eventMessage}"></span></p>
-      <p>
-        参加条件:
-        <span th:each="r, stat : ${restrictions}">
-          <span th:text="${r}"></span><span th:if="${!stat.last}">、</span>
-        </span>
-      </p>
+      <p th:if="${eventDetail.comMethod}">通話手段: <span th:text="${eventDetail.comMethod}"></span></p>
+	  
+	  <!-- イベントに参加済み＆comMethodがあるならリンク表示 -->
+	  <div th:if="${eventDetail.comMethod != null} and ${isParticipating}">
+	    <p class="url-copy">
+	      招待リンク:
+	      <span class="url-copy-wrapper"> 
+	        <input type="text" id="inviteLink" th:value="${eventDetail.inviteLink}" readonly />
+	        <button onclick="copyEventUrl('inviteLink')" class="btn" style="margin-bottom: 0px">コピー</button>
+	      </span>
+	    </p>
+	  </div>
+	  
+	  <!-- それ以外の場合 -->
+	  <p th:unless="${eventDetail.comMethod != null} and ${isParticipating}">
+	    招待リンク:参加後に公開
+	  </p>
+	  <p>
+	    参加条件:
+	    <span th:each="r, stat : ${restrictions}">
+	      <span th:text="${r}"></span><span th:if="${!stat.last}">、</span>
+	    </span>
+	  </p>
       <p>
         募集人数:
         <span th:text="${eventDetail.recruitMin}"></span>～<span th:text="${eventDetail.recruitMax}"></span>
@@ -76,16 +93,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    function copyEventUrl() {
-      const input = document.getElementById("eventUrlInput");
-      input.select();
-      input.setSelectionRange(0, 99999); // モバイル用
-      document.execCommand("copy");
-      alert("URLをコピーしました: " + input.value);
-    }
-  </script>
   <script th:src="@{/js/event-detail.js}"></script>
   <script th:src="@{/js/common.js}"></script>
 </body>

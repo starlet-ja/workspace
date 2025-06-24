@@ -98,11 +98,11 @@
       <button type="button" class="next-button">次へ</button>
     </div>
 
-    <!-- ステップ5：通信ツール -->
+    <!-- ステップ5：通話ツール -->
     <div class="step" data-step="5">
-      <label for="com-method">通信ツール（必須）</label><br />
+      <label for="com-method">通話ツール（必須）</label><br />
       <select name="com-method" id="com-method">
-        <option value="">--通信ツールを選択--</option>
+        <option value="">--通話ツールを選択--</option>
         <option value="Discord">Discord</option>
         <option value="Google Meet">Google Meet</option>
         <option value="Zoom">Zoom</option>
@@ -111,9 +111,17 @@
       <button type="button" class="prev-button">戻る</button>
       <button type="button" class="next-button">次へ</button>
     </div>
+	
+	<!-- ステップ6：招待リンク -->
+	<div class="step" data-step="6">
+	  <label for="invite-link">招待リンク（必須）</label><br />
+	  <input type="text" id="invite-link" name="inviteLink" style="width:200px;" required /><br />
+	  <button type="button" class="prev-button">戻る</button>
+	  <button type="button" class="next-button">次へ</button>
+	</div>
 
-    <!-- ステップ6：参加条件 -->
-    <div class="step" data-step="6">
+    <!-- ステップ7：参加条件 -->
+    <div class="step" data-step="7">
       <div style="font-weight:bold">参加条件（任意・複数選択可）</div>
       <div id="check-item-set">
         <div class="check-item"><input type="checkbox" id="beginner" name="beginner" value="1" /><label for="beginner">初心者歓迎</label></div>
@@ -131,8 +139,8 @@
       <button type="button" class="next-button">次へ</button>
     </div>
 
-    <!-- ステップ7：ひと言 -->
-    <div class="step" data-step="7">
+    <!-- ステップ8：ひと言 -->
+    <div class="step" data-step="8">
       <label for="message">ひと言（任意）</label><br />
       <input type="text" id="message" name="message" style="width:200px;" /><br />
       <button type="button" class="prev-button">戻る</button>

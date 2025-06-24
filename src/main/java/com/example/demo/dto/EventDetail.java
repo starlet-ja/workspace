@@ -11,6 +11,8 @@ public class EventDetail {
     public LocalDate eventDate;
     public LocalTime startTime;
     public LocalTime endTime;
+    public String comMethod;
+    public String inviteLink;
     public String eventMessage;
     public Integer recruitMin;
     public Integer recruitMax;
