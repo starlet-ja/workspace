@@ -224,37 +224,24 @@ html, body {
 /*  box-sizing: border-box;*/
 /*  line-height: 1;*/
 /*}*/
+
 .card .close-button {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 35px;
   height: 35px;
-  background: #000000;
+  background-color: #000000;
   color: #ffffff;
-  border: 1px solid #000000;
+  border: none;
   border-radius: 50%;
-  font-size: 30px;
+  font-size: 25px;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+  box-sizing: border-box;
   line-height: 1;
-  cursor: pointer;
-  box-shadow:
-    0 0 5px #000000,
-    0 0 10px #000000 inset;
-  transition: all 0.3s ease;
-  font-family: 'Creepster', cursive, sans-serif;
-}
-
-.card .close-button:hover {
-  background: #111111;
-  color: #000000;
-  box-shadow:
-    0 0 8px #000000,
-    0 0 15px #000000 inset;
-  transform: scale(1.05);
 }
 
 .card ul {
@@ -266,11 +253,25 @@ html, body {
     margin-bottom: 6px;
 }
 
+/*.card a {*/
+/*	font-size: 14px;*/
+/*    color: #007BFF;*/
+/*    text-decoration: none;*/
+/*}*/
+
 .card a {
-	font-size: 14px;
-    color: #007BFF;
+    font-size: 14px;
+    color: #003366;
     text-decoration: none;
+    font-weight: bold;
+    text-shadow:
+        -1px -1px 0 #d3d3d3,
+         1px -1px 0 #d3d3d3,
+        -1px  1px 0 #d3d3d3,
+         1px  1px 0 #d3d3d3;
 }
+
+
 
 .card a:hover {
     text-decoration: underline;

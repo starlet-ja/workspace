@@ -110,6 +110,7 @@ if (saved) {
 const map = new maplibregl.Map({
   container: 'map',
   style: 'https://tile.openstreetmap.jp/styles/osm-bright-ja/style.json',
+//  style: '/style/horror-style.json',
   center: center,
   zoom: zoom,
   pitchWithRotate: false,
