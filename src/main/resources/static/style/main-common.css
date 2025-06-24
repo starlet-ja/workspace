@@ -226,7 +226,7 @@ body::before {
 	padding: 5px;
 	border: solid 3px #3b2f1c; /* 暗めの木の縁色 */
 	border-radius: 5px;
-	background-image: url('/img/wood.png');
+	background-image: url('/img/wood.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -283,7 +283,7 @@ body::before {
 	margin-left: 10px;
 	border: 3px solid #3b2f2f; /* 焦げ色 */
 	border-radius: 5px;
-	background: url('/img/wood.png');
+	background: url('/img/wood.jpg');
 	background-size: cover;
 	background-position: center;
 	color: #e0e0e0;
