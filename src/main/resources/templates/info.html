@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout/base}">
+<head>
+  <link rel="stylesheet" th:href="@{/style/info.css}" />
+</head>
+<body>
+<!-- ON/OFFの切替エリアを挿入 -->
+<div th:insert="~{components/body :: switch-area}"></div>
+<div id="total-area">
+  <div id="top-area">
+	<a href="/info"><img id="logo" src="/img/shuulogo.png" /></a>
+  </div>
+</div>
+<div id="event-list">
+	<div class="event">
+	 <h1>このサイトについて</h1>
+	 <p>集狼は、人狼ゲームのメンバー募集サイトです。誰でも利用する事ができます。</p>
+	 <p>オンライン人狼（通話アプリを使用）の募集。オフライン人狼（直接会って）の募集。両方の募集が可能です。</p>
+	 <p>人狼は面白いゲームですが、参加者を集めるのが大変だと感じています。</p>
+	 <p>とくにオフライン人狼の場合、ボードゲームバーのような、気の利いたお店が無い田舎では、人集めが大変です。</p>
+	 <p>もっと気軽に、やりたい時に、いつでも、そういった環境を作れればと思いました。</p>
+	 <p>このサイトを通して、沢山のかたが人狼にハマって貰えれば本望です。</p>
+	</div>
+</div>
+<script th:src="@{/js/common.js}"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+/* PC (幅1025px以上) */
+
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url('/img/village.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #fff; /* テキストが読めるように白系に */
+}
+
+
+/* イベントリスト */
+#event-list {
+	position:absolute;
+	top: 130px;
+	bottom: 0;
+	width: 100%;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	box-sizing: border-box;
+	overflow-y: auto;
+}
+
+.event {
+	width: 100%;
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: rgba(238, 238, 238, 0.2);
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	box-sizing: border-box;
+	backdrop-filter: blur(4px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 5px;
+}
+
+.event h1 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 16px;
+	text-align: left;
+}
+
+.event a {
+    font-size: 14px;
+    color: #003366;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow:
+        -1px -1px 0 #d3d3d3,
+         1px -1px 0 #d3d3d3,
+        -1px  1px 0 #d3d3d3,
+         1px  1px 0 #d3d3d3;
+}
+
+
+
+
+#add-event-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: inline-block;
+    padding: 10px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-image: url('/img/wood.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+	border: solid 3px #3b2f1c;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    cursor: pointer;
+}
+
+#add-event-button:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+    transform: scale(1.05);
+}
+
+/* タブレット (幅601px～1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+	/*登録フォーム下部のボタンレイアウト*/
+	.set-button {
+		width: 200px;
+		padding: 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-start;
+		box-sizing:border-box;
+	}
+}
+
+/* スマホ (幅600px以下) */
+@media (max-width: 600px) {
+	
+	/*登録フォーム下部のボタンレイアウト*/
+	.set-button {
+		width: 200px;
+		padding: 5px;
+		display: flex;
+		flex-direction: row;
+		justify-content:flex-start;
+		box-sizing:border-box;
+	}
+}
+
+/* ボタン */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 100%;
+}

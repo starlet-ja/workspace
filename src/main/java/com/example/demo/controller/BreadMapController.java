@@ -43,6 +43,12 @@ public class BreadMapController {
 	@Autowired
 	private SessionService sessionService;
 	
+	/* 紹介画面 */
+	@GetMapping("/info")
+	public String showInfo() {
+		return "info";
+	}
+	
 	/* オンライン画面 */
 	@GetMapping("/online-event")
 	public String showOnlineEvent(Model model, HttpSession session, HttpServletRequest request) {
