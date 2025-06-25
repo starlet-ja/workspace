@@ -264,15 +264,20 @@ public class BreadMapController {
 	public String showEventDetail(@RequestParam Integer eventId, Model model, HttpSession session) {
 	    logger.info("/event-detail ページ表示");
 
+	    Object loginUser = session.getAttribute("loginUser");
+	    
 	    EventDetail detail = eventService.fetchEventDetail(eventId);
 	    List<String> restrictions = eventService.fetchRestrictionLabels(eventId);
 	    List<Map<String, Object>> participants = eventService.fetchParticipants(eventId);
 
+	    // 主催者がページを要求しているか確認
+	    boolean isOwner = loginUser != null && loginUser.equals(detail.userId);
+	    model.addAttribute("isOwner", isOwner);
+	    
 	    model.addAttribute("eventDetail", detail);
 	    model.addAttribute("restrictions", restrictions);
 	    model.addAttribute("participants", participants);
 
-	    Object loginUser = session.getAttribute("loginUser");
 	    boolean isLoggedIn = (loginUser != null);
 	    model.addAttribute("isLoggedIn", isLoggedIn);
 
@@ -283,6 +288,19 @@ public class BreadMapController {
 	    model.addAttribute("eventUrl", eventUrl);
 
 	    return "event-detail";
+	}
+	
+	// イベント削除ボタンをクリックした際の処理
+	@PostMapping("/delete-event")
+	public String deleteEvent(@RequestParam("eventId") Integer eventId, HttpSession session) {
+	    Object loginUser = session.getAttribute("loginUser");
+	    if (loginUser == null) {
+	        return "redirect:/login";
+	    }
+	    
+	    // 削除が完了したらイベントを削除
+	    eventService.deleteEventById(eventId, (Integer) loginUser);
+	    return "redirect:/profile";
 	}
 
 	// イベント参加ボタンをクリックした際の処理

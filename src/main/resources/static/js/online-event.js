@@ -12,6 +12,20 @@ const restrictionLabels = {
   10: "60代OK"
 };
 
+// クッキーにオン/オフ情報が無い場合は、オンにする
+window.addEventListener('DOMContentLoaded', () => {
+  const cookies = document.cookie.split(';').reduce((acc, str) => {
+    const [k, v] = str.trim().split('=');
+    acc[k] = v;
+    return acc;
+  }, {});
+
+  if (!cookies.eventMode) {
+    document.getElementById('online').classList.add('active');
+    document.getElementById('offline').classList.remove('active');
+  }
+});
+
   // カレンダーに本日の日付を入れる
   const today = getDateAfterNDays(0);
   const after30DaysStr = getDateAfterNDays(30);

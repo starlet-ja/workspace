@@ -91,7 +91,16 @@
           <button type="submit" class="btn" id="submitComment">コメントを投稿</button>
         </form>
       </div>
-    </div>
+	  
+	  <!-- 削除ボタン -->
+	  <div th:if="${isOwner}">
+		<h2>イベント削除ボタンは主催者のみに表示されています。イベントを削除する場合はクリックして下さい。</h2>
+		  <form method="post" action="/delete-event">
+		    <input type="hidden" name="eventId" th:value="${eventDetail.eventId}" />
+		    <button type="submit" class="btn logout" onclick="return confirm('本当に削除しますか？');">イベントを削除</button>
+		  </form>
+	  </div>
+	</div>
   </div>
   <script th:src="@{/js/event-detail.js}"></script>
   <script th:src="@{/js/common.js}"></script>

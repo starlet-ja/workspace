@@ -107,11 +107,13 @@ function setEventData(clickedLngLat) {
 }
 
 
-  // オンライン画面/オフライン画面の切替
+  // クッキーにオンライン/オフラインを登録して遷移
   function setModeCookie(mode, url) {
     document.cookie = "eventMode=" + mode + "; path=/; max-age=86400"; // クッキーに保存
-    window.location.href = url; // 指定のURLに遷移
+    window.location.href = url;
   }
+  
+  // DOMの生成と共にオンライン画面/オフライン画面を切り替える
   window.addEventListener('DOMContentLoaded', () => {
     const cookies = document.cookie.split(';').reduce((acc, str) => {
       const [k, v] = str.trim().split('=');

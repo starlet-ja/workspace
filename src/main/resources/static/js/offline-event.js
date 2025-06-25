@@ -1,3 +1,17 @@
+// クッキーにオン/オフ情報が無い場合は、オフにする
+window.addEventListener('DOMContentLoaded', () => {
+  const cookies = document.cookie.split(';').reduce((acc, str) => {
+    const [k, v] = str.trim().split('=');
+    acc[k] = v;
+    return acc;
+  }, {});
+
+  if (!cookies.eventMode) {
+    document.getElementById('offline').classList.add('active');
+    document.getElementById('online').classList.remove('active');
+  }
+});
+
 // マップ上の既存ポップアップ全削除用に配列管理
 let currentPopups = [];
 

@@ -199,6 +199,21 @@ public class EventService {
         );
     }
 
+    // イベントを削除する
+    public void deleteEventById(Integer eventId, Integer userId) {
+        // 自分が主催したイベントのみ削除できるように制限
+        String checkSql = "SELECT COUNT(*) FROM event WHERE event_id = ? AND user_id = ?";
+        Integer count = jdbcTemplate.queryForObject(checkSql, Integer.class, eventId, userId);
+
+        if (count != null && count > 0) {
+            // 削除順序：参加者→詳細→本体
+            jdbcTemplate.update("DELETE FROM event_participants WHERE event_id = ?", eventId);
+            jdbcTemplate.update("DELETE FROM event_details WHERE event_id = ?", eventId);
+            jdbcTemplate.update("DELETE FROM restriction WHERE event_id = ?", eventId);
+            jdbcTemplate.update("DELETE FROM event WHERE event_id = ?", eventId);
+        }
+    }
+
     public List<String> fetchRestrictionLabels(Integer eventId) {
         List<Integer> ids = jdbcTemplate.query(
             "SELECT restriction FROM restriction WHERE event_id = ?",
