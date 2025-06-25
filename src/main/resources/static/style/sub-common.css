@@ -77,9 +77,9 @@ html, body {
 
 /* カードエリア */
 #card-folder {
-  position: absolute;
+/*  position: absolute;*/
+  position: relative;
   top: 30px;
-  bottom: 0;
   left: 50%;
   width: 100%;
   transform: translateX(-50%);
@@ -88,7 +88,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  box-sizing: border-box; /* ←修正ここ！ */
+  box-sizing: border-box;
 }
 
 .card {
