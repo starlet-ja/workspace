@@ -18,6 +18,7 @@ body {
 #event-list {
 	position:absolute;
 	top: 130px;
+	bottom: 0;
 	width: 100%;
 	padding: 10px;
 	display: flex;
