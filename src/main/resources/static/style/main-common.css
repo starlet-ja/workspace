@@ -169,7 +169,7 @@ body::before {
 
 /* コントロールボタンエリア */
 #control-buttons {
-	padding: 10px;
+	padding: 10px 5px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
