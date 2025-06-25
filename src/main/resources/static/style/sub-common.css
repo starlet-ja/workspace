@@ -93,6 +93,8 @@ html, body {
 }
 
 .card {
+	overflow-y: auto;
+	max-height: calc(100vh - 60px);
 	position: relative;
 	background: linear-gradient(135deg, #2c1a1a, #1a0000); /* 血のような暗い赤系グラデ */
 	padding: 24px;
