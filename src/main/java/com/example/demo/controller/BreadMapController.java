@@ -49,6 +49,12 @@ public class BreadMapController {
 		return "info";
 	}
 	
+	/* 利用規約・プライバシーポリシー */
+	@GetMapping("/policy")
+	public String showPolicy() {
+		return "policy";
+	}
+	
 	/* オンライン画面 */
 	@GetMapping("/online-event")
 	public String showOnlineEvent(Model model, HttpSession session, HttpServletRequest request) {

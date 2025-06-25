@@ -60,7 +60,7 @@ body {
 #add-event-button {
     position: fixed;
     right: 20px;
-    bottom: 20px;
+    bottom: 60px;
     display: inline-block;
     padding: 10px 10px;
     font-size: 18px;
