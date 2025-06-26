@@ -44,7 +44,7 @@ public class BreadMapController {
 	private SessionService sessionService;
 	
 	/* 紹介画面 */
-	@GetMapping("/info")
+	@GetMapping("/")
 	public String showInfo() {
 		return "info";
 	}
